@@ -82,7 +82,7 @@ class GetRemainingGuesses(BaseModel):
     feedback: list[str]
     current_possible_answers: list[str]
 
-@app.post("/get_remaining_guesses")
+@app.post("/wordle_get_remaining_guesses")
 def handle_get_remaining_guesses(request: GetRemainingGuesses) -> list[str]: 
     result = get_remaining_guesses(request.guesses, request.feedback, request.current_possible_answers)
     return result
@@ -129,7 +129,7 @@ class GetEntropies(BaseModel):
     possible_answers: list[str]
 
 
-@app.post("/get_entropies")
+@app.post("/wordle_get_entropies")
 def get_entropies(request: GetEntropies) -> dict: 
     result = calculate_entropies(request.possible_guesses, request.possible_answers)
     return result
@@ -150,7 +150,7 @@ class GetLetters(BaseModel):
     fun_factor: int
     distribution: str
     
-@app.post("/get_letters")
+@app.post("/anagame_get_letters")
 def handle_get_letters(request: GetLetters) -> list[str]: 
     explorer = AnagramExplorer(get_valid_word_list())
     result = generate_letters(request.fun_factor, request.distribution, explorer)
@@ -163,7 +163,7 @@ class CalcStats(BaseModel):
     guesses: list[str]
     letters: list[str]
 
-@app.post("/calc_stats")
+@app.post("/anagame_calc_stats")
 def handle_calc_stats(request: CalcStats) -> list[str]: 
     explorer = AnagramExplorer(get_valid_word_list())
     result = calc_stats(request.guesses, request.letters, explorer) #guesses needs to be tuples
