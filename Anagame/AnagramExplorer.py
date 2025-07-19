@@ -1,5 +1,3 @@
-import itertools
-
 class AnagramExplorer:
     def __init__(self, all_words: list[str]):
        self.__corpus = all_words

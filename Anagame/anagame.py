@@ -1,7 +1,7 @@
 import time
 import random
-from valid_anagame_words import get_valid_word_list
-from AnagramExplorer import AnagramExplorer
+from Anagame.valid_anagame_words import get_valid_word_list
+from Anagame.AnagramExplorer import AnagramExplorer
 
 def generate_letters(fun_factor: int, distribution: str, explorer:AnagramExplorer) -> list:
     '''Generates a list of 7 randomly-chosen lowercase letters which can form at least 
