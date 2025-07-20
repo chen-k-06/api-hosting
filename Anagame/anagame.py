@@ -123,14 +123,16 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
         "skill": 2
      }
     '''
-    stats = {}
-    stats["valid"] = []   #list of tuples
-    stats["invalid"] = [] #list of tuples
-    stats["score"] = 0    #total score per the rules of the game
-    stats["accuracy"] = 0 #truncated int percentage representing valid player guesses out of all player guesses
-    stats["skill"] = 0    #truncated int percentage representing unique guessed words out of all possible unique anagram words
-    stats["guessed"] = set() #unique valid guessed words
-    stats["not guessed"] = set() #unique words the player could have guessed, but didn’t
+    stats = [[], [], [], [], [], [], []]
+    stats[0] = []   #list of tuples: "valid"
+    stats[1] = [] #list of tuples: "invalid"
+    stats[2] = 0    #total score per the rules of the game: "score"
+    stats[3] = 0 # truncated int percentage representing valid player guesses out of all player guesses
+                 # "accuracy"
+    stats[4] = 0    #truncated int percentage representing unique guessed words out of all possible unique anagram words
+                 # "skill"
+    stats[5] = set() #unique valid guessed words: "guessed"
+    stats[6] = set() #unique words the player could have guessed, but didn’t: "not guessed"
 
     guesses_copy = []
     for guess in guesses: 
@@ -191,6 +193,9 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
 
        elif len(pair[0]) == 7:
             stats["score"] += 5
+
+    stats[5] = list(stats[5])
+    stats[6] = list(stats[6])
 
     return stats
 
