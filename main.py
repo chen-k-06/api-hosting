@@ -169,7 +169,7 @@ class StatsResponse(BaseModel):
     invalid_guesses: List[Tuple[str, str]]
     score: int
     accuracy: float
-    skill: List[str]
+    skill: float
     guessed_words: list[str]
     not_guessed_words: list[str]
 
