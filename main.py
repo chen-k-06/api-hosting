@@ -142,6 +142,8 @@ def get_entropies(request: GetEntropies) -> dict:
 from Anagame.AnagramExplorer import AnagramExplorer
 from Anagame.valid_anagame_words import get_valid_word_list
 from Anagame.anagame import calc_stats, generate_letters
+from typing import List, Tuple, Any
+
 #------------------------------------------------
 # Calculate end of game statistics functions
 #------------------------------------------------
@@ -162,11 +164,29 @@ class CalcStats(BaseModel):
     guesses: list[list[str]]
     letters: list[str]
 
-@app.post("/anagame_calc_stats")
-def handle_calc_stats(request: CalcStats) -> list[str]: 
+class StatsResponse(BaseModel):
+    valid_guesses: List[str]
+    invalid_guesses: List[Tuple[str, str]]
+    score: int
+    accuracy: float
+    skill: List[str]
+    guessed_words: list[str]
+    not_guessed_words: list[str]
+
+@app.post("/anagame_calc_stats", response_model=StatsResponse)
+def handle_calc_stats(request: CalcStats) -> StatsResponse: 
     explorer = AnagramExplorer(get_valid_word_list())
     result = calc_stats(request.guesses, request.letters, explorer) #guesses needs to be tuples
-    return result
+        
+    return StatsResponse(
+        valid_guesses=result[0],
+        invalid_guesses=result[1],
+        score=result[2],
+        accuracy=result[3],
+        skill=result[4],
+        guessed_words=result[5],
+        not_guessed_words=result[6]
+    )
 
 #------------------------------------------------
 # Get all anagrams (for hint)
