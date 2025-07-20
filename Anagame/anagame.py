@@ -1,4 +1,3 @@
-import time
 import random
 from Anagame.valid_anagame_words import get_valid_word_list
 from Anagame.AnagramExplorer import AnagramExplorer
@@ -139,7 +138,7 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
         guesses_copy.append(temp)
 
     guesses = guesses_copy
-    
+
     for guess in guesses: 
        if len(guess) == 2 and explorer.is_valid_anagram_pair((guess[0], guess[1]), letters) and sorted(guess) not in stats["valid"]:
             stats["valid"].append(sorted(guess))
@@ -194,52 +193,6 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
             stats["score"] += 5
 
     return stats
-        
-    ### END SOLUTION 
 
-def display_stats(stats):
-    '''Prints a string representation of the game results
-
-        Args:
-          score_info (dict): a dictionery of game play information
-    '''
-    
-    print("\nThanks for playing Anagame!\n")
-    print("------------")
-    print(f"Accuracy: {round(stats['accuracy'], 2)}%")
-    print(f" valid guesses ({len(stats['valid'])}):", end=" ")
-    for guess in stats['valid']:
-        print(f"  {guess[0]},{guess[1]}", end=" ")
-    print(f"\n invalid guesses ({len(stats['invalid'])}):", end=" ")
-    for guess in stats['invalid']:
-        print(f"  {guess[0]},{guess[1]}", end=" ")
-    print("\n------------")
-    print(f"Skill: {stats['skill']}% ")
-    print(f" Unique words used:", end=" ")
-    for guess in sorted(stats['guessed']):
-        print(f"  {guess}", end=" ")
-    print(f"\n Words you could have used:", end=" ")
-    for guess in sorted(stats['not guessed']):
-        print(f"  {guess}", end=" ")
-    print("\n------------")
-    print(f"AnaGame - Final Score: {stats['score']}")
-    print("------------")
-
-
-if __name__ == "__main__":
-  time_limit = 60
-
-  explorer = AnagramExplorer(get_valid_word_list())
-  letters = generate_letters(100, "scrabble", explorer) # resonable range is 0 - 60 (easiest at 60, hardest at 0)
-
-  print("\nWelcome to Anagame!\n")
-  print("Please enter your anagram guessess separated by a comma: eat,tea")
-  print("Enter 'quit' to end the game early, or 'hint' to get a useful word!\n")
-  print(f"You have {time_limit} seconds to guess as many anagrams as possible!")
-  print(f"{letters}")
-
-  guesses = play_game(time_limit, letters, explorer)
-  stats_dict = calc_stats(guesses, letters, explorer)
-  display_stats(stats_dict)
   
   
