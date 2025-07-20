@@ -143,56 +143,56 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
 
     for guess in guesses: 
        if len(guess) == 2 and explorer.is_valid_anagram_pair((guess[0], guess[1]), letters) and sorted(guess) not in stats["valid"]:
-            stats["valid"].append(sorted(guess))
+            stats[0].append(sorted(guess))
 
        else: 
-          stats["invalid"].append(guess)
+          stats[1].append(guess)
 
     if len(guesses) == 0: 
-       stats["accuracy"] = 0
+       stats[3] = 0
     
     else:
-        stats["accuracy"] = int ((len(stats["valid"]) / len(guesses)) * 100)
+        stats[3] = int ((len(stats[0]) / len(guesses)) * 100)
 
-    for pair in stats["valid"]:
+    for pair in stats[0]:
        for word in pair: 
-          stats["guessed"].add(word)
+          stats[5].add(word)
 
-    stats["not guessed"] = explorer.get_all_anagrams(letters)
+    stats[6] = explorer.get_all_anagrams(letters)
 
     guessed_words = set()
 
-    for word in stats["not guessed"]:
-       if word in stats["guessed"]:
+    for word in stats[6]:
+       if word in stats[5]:
           guessed_words.add(word)
 
     for word in guessed_words: 
-       stats["not guessed"].remove(word)
+       stats[6].remove(word)
        
-    stats["not guessed"] = list(filter(lambda item: item is not None, stats["not guessed"]))
-    stats["not guessed"] =  set(stats["not guessed"])
+    stats[6] = list(filter(lambda item: item is not None, stats[6]))
+    stats[6] =  set(stats[6])
 
     if len(explorer.get_all_anagrams(letters)) == 0:
-       stats["skill"] = 0
+       stats[4] = 0
 
     else: 
-        stats["skill"] = int((len(stats["guessed"]) / len(explorer.get_all_anagrams(letters))) * 100)
+        stats[4] = int((len(stats[5]) / len(explorer.get_all_anagrams(letters))) * 100)
 
-    for pair in stats["valid"]: 
+    for pair in stats[0]: 
        if len(pair[0]) == 3:
-            stats["score"] += 1
+            stats[2] += 1
         
        elif len(pair[0]) == 4:
-            stats["score"] += 2
+            stats[2] += 2
 
        elif len(pair[0]) == 5:
-            stats["score"] += 3    
+            stats[2] += 3    
 
        elif len(pair[0]) == 6:
-            stats["score"] += 3
+            stats[2] += 3
 
        elif len(pair[0]) == 7:
-            stats["score"] += 5
+            stats[2] += 5
 
     stats[5] = list(stats[5])
     stats[6] = list(stats[6])
