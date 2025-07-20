@@ -75,7 +75,6 @@ def parse_guess(guess:str) -> tuple:
         >>> parse_guess("eat tea")
         ("", "")
    '''
-   ### BEGIN SOLUTION
    if "," in guess:
     if guess.count(",") > 1:
         return ("", "")
@@ -89,43 +88,6 @@ def parse_guess(guess:str) -> tuple:
       array[i] = array[i].replace(" ", "")
 
    return tuple(array)
-
-   ### END SOLUTION 
-
-def play_game(time_limit: int, letters: list, explorer:AnagramExplorer) -> list:
-    '''Plays a single game of AnaGame
-
-       Args:
-         time_limit: Time limit in seconds
-         letters: A list of valid letters from which the player can create an anagram
-         explorer (AnagramExplorer): helper object used to compute anagrams of letters.
-
-       Returns:
-          A list of tuples reprsenting all player guesses
-   '''
-    guesses = [] 
-    quit = False
-
-    start = time.perf_counter() #start the stopwatch (sec)
-    stop = start + time_limit
-
-    while time.perf_counter() < stop and not quit:
-        guess = input('')
-        if guess.strip() == "quit":
-            quit = True
-        elif guess.strip() == "hint":
-            print(f"Try working with: {explorer.get_most_anagrams(letters)}")
-        else:
-          tuple_guess = parse_guess(guess)
-          if len(tuple_guess[0]) > 1:
-            guesses.append(tuple_guess)
-          else:
-            print("Invalid input")
-
-        print(f"{letters} {round(stop - time.perf_counter(), 2)} seconds left")
-
-    return guesses
-   
    
 def calc_stats(guesses: list, letters: list, explorer) -> dict:
     '''Aggregates several statistics into a single dictionary with the following key-value pairs:
@@ -170,10 +132,14 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
     stats["skill"] = 0    #truncated int percentage representing unique guessed words out of all possible unique anagram words
     stats["guessed"] = set() #unique valid guessed words
     stats["not guessed"] = set() #unique words the player could have guessed, but didn’t
-    ### BEGIN SOLUTION
 
-    valid_word_list = get_valid_word_list() # all valid words, regardless of what letters they contain
+    guesses_copy = []
+    for guess in guesses: 
+        temp = parse_guess(tuple(guess))
+        guesses_copy.append(temp)
 
+    guesses = guesses_copy
+    
     for guess in guesses: 
        if len(guess) == 2 and explorer.is_valid_anagram_pair((guess[0], guess[1]), letters) and sorted(guess) not in stats["valid"]:
             stats["valid"].append(sorted(guess))
