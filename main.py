@@ -5,8 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://chen-k-06.github.io"],  # frontend URL
+    CORSMiddleware, 
+    allow_origins = ["https://chen-k-06.github.io"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -127,7 +127,6 @@ def calculate_entropies(possible_guesses: list[str], possible_answers: list[str]
 class GetEntropies(BaseModel):
     possible_guesses: list[str]
     possible_answers: list[str]
-
 
 @app.post("/wordle_get_entropies")
 def get_entropies(request: GetEntropies) -> dict: 

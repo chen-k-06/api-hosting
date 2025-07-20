@@ -136,6 +136,8 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
 
     guesses_copy = []
     for guess in guesses: 
+        if guess == ["-1","-1"]: # incorrectly formatted output
+            continue
         temp = parse_guess(tuple(guess))
         guesses_copy.append(temp)
 
