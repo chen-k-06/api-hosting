@@ -160,7 +160,7 @@ def handle_get_letters(request: GetLetters) -> list[str]:
 # Calculate end of game statistics functions 
 #------------------------------------------------
 class CalcStats(BaseModel):
-    guesses: list[str]
+    guesses: list[list[str]]
     letters: list[str]
 
 @app.post("/anagame_calc_stats")
