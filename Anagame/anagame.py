@@ -78,6 +78,8 @@ def parse_guess(guess:str) -> tuple:
     if guess.count(",") > 1:
         return ("", "")
     array = guess.split(",")
+    array[0] = array[0].upper()
+    array[1] = array[1].upper()
 
    else: 
       return ("", "")
