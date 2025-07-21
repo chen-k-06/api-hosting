@@ -75,6 +75,7 @@ def parse_guess(guess:str) -> tuple:
         ("", "")
    '''
    print("parse guess: ", guess)
+   guess = list(guess)
 
    for i in range(len(guess)): 
       guess[i] = guess[i].replace(",", "")
