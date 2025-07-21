@@ -140,9 +140,9 @@ def get_entropies(request: GetEntropies) -> dict:
 #------------------------------------------------
 
 from Anagame.AnagramExplorer import AnagramExplorer
-from Anagame.valid_anagame_words import get_valid_word_list, get_most_anagrams
+from Anagame.valid_anagame_words import get_valid_word_list
 from Anagame.anagame import calc_stats, generate_letters
-from typing import List, Tuple, Any
+from typing import List, Tuple
 
 #------------------------------------------------
 # Calculate end of game statistics functions
@@ -196,7 +196,8 @@ class GetHint(BaseModel):
     
 @app.post("/anagame_get_hint")
 def handle_get_letters(request: GetHint) -> str: 
-    result = get_most_anagrams(request.letters)
+    explorer = AnagramExplorer(get_valid_word_list())
+    result = explorer.get_most_anagrams(request.letters)
     return result
 #------------------------------------------------
 #------------------------------------------------
