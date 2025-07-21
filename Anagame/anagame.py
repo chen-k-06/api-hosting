@@ -138,16 +138,16 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
 
     guesses_copy = []
     for guess in guesses: 
-        if guess == ["-1","-1"]: # incorrectly formatted output
-            continue
         temp = parse_guess(tuple(guess))
         guesses_copy.append(temp)
+        print("guesses copy: ", guesses_copy)
 
     guesses = guesses_copy
 
     for guess in guesses: 
        if len(guess) == 2 and explorer.is_valid_anagram_pair((guess[0], guess[1]), letters) and sorted(guess) not in stats["valid"]:
             stats[0].append(sorted(guess))
+            print(stats[0])
 
        else: 
           stats[1].append(guess)
