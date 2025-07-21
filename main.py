@@ -140,7 +140,7 @@ def get_entropies(request: GetEntropies) -> dict:
 #------------------------------------------------
 
 from Anagame.AnagramExplorer import AnagramExplorer
-from Anagame.valid_anagame_words import get_valid_word_list
+from Anagame.valid_anagame_words import get_valid_word_list, get_most_anagrams
 from Anagame.anagame import calc_stats, generate_letters
 from typing import List, Tuple, Any
 
@@ -191,7 +191,13 @@ def handle_calc_stats(request: CalcStats) -> StatsResponse:
 #------------------------------------------------
 # Get all anagrams (for hint)
 #------------------------------------------------
-
+class GetHint(BaseModel):
+    letters: list[str]
+    
+@app.post("/anagame_get_hint")
+def handle_get_letters(request: GetHint) -> str: 
+    result = get_most_anagrams(request.letters)
+    return result
 #------------------------------------------------
 #------------------------------------------------
 # REAL TIME STOCK INDICATOR
