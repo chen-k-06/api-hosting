@@ -74,21 +74,13 @@ def parse_guess(guess:str) -> tuple:
         >>> parse_guess("eat tea")
         ("", "")
    '''
-   if "," in guess:
-    if guess.count(",") > 1:
-        return ("", "")
-    array = guess.split(",")
-    array[0] = array[0].upper()
-    array[1] = array[1].upper()
+   print("parse guess: ", guess)
 
-   else: 
-      return ("", "")
+   for i in range(len(guess)): 
+      guess[i] = guess[i].replace(",", "")
+      guess[i] = guess[i].replace(" ", "")
 
-   for i in range(len(array)): 
-      array[i] = array[i].replace(",", "")
-      array[i] = array[i].replace(" ", "")
-
-   return tuple(array)
+   return tuple(guess)
    
 def calc_stats(guesses: list, letters: list, explorer) -> dict:
     '''Aggregates several statistics into a single dictionary with the following key-value pairs:
