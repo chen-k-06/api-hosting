@@ -139,7 +139,7 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
     guesses = guesses_copy
 
     for guess in guesses: 
-       if len(guess) == 2 and explorer.is_valid_anagram_pair((guess[0], guess[1]), letters) and sorted(guess) not in stats["valid"]:
+       if len(guess) == 2 and explorer.is_valid_anagram_pair((guess[0], guess[1]), letters) and sorted(guess) not in stats[0]:
             stats[0].append(sorted(guess))
             print(stats[0])
 
