@@ -161,8 +161,8 @@ def handle_get_letters(request: GetLetters) -> list[str]:
 # Calculate end of game statistics functions 
 #------------------------------------------------
 class CalcStats(BaseModel):
-    guesses: list[list[str]]
-    letters: list[str]
+    guesses: List[Tuple[str, str]]
+    letters: List[str]
 
 class StatsResponse(BaseModel):
     valid_guesses: List[Tuple[str, str]]
