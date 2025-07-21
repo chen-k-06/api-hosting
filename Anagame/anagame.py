@@ -119,8 +119,8 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
      }
     '''
     stats = [[], [], [], [], [], [], []]
-    stats[0] = []   #list of tuples: "valid"
-    stats[1] = [] #list of tuples: "invalid"
+    stats[0] = []   #list of lists: "valid"
+    stats[1] = [] #list of lists: "invalid"
     stats[2] = 0    #total score per the rules of the game: "score"
     stats[3] = 0 # truncated int percentage representing valid player guesses out of all player guesses
                  # "accuracy"

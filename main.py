@@ -165,13 +165,13 @@ class CalcStats(BaseModel):
     letters: list[str]
 
 class StatsResponse(BaseModel):
-    valid_guesses: List[str]
-    invalid_guesses: List[Tuple[str, str]]
+    valid_guesses: List[List[str, str]]
+    invalid_guesses: List[List[str, str]]
     score: int
     accuracy: float
     skill: float
-    guessed_words: list[str]
-    not_guessed_words: list[str]
+    guessed_words: List[List[str, str]]
+    not_guessed_words: List[List[str, str]]
 
 @app.post("/anagame_calc_stats", response_model=StatsResponse)
 def handle_calc_stats(request: CalcStats) -> StatsResponse: 
