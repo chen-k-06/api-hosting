@@ -168,7 +168,6 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
        stats[6].remove(word)
        
     stats[6] = list(filter(lambda item: item is not None, stats[6]))
-    stats[6] =  set(stats[6])
 
     if len(explorer.get_all_anagrams(letters)) == 0:
        stats[4] = 0
@@ -192,8 +191,11 @@ def calc_stats(guesses: list, letters: list, explorer) -> dict:
        elif len(pair[0]) == 7:
             stats[2] += 5
 
+    stats[6] = sorted(stats[6])
+    sorted_stats = sorted(stats[6], key=lambda x: explorer.prime_hash(x))
+
     stats[5] = list(stats[5])
-    stats[6] = list(stats[6])
+    stats[6] = sorted_stats
 
     return stats
 
